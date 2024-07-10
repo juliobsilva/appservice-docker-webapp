@@ -21,4 +21,4 @@ COPY --from=build /app /usr/src/app
 EXPOSE 80
 
 # Comando para iniciar o Nginx em primeiro plano
-CMD ["nginx", "-g", "daemon off;", ";", "python", "my_app_pypi/main.py"]
+CMD ["nginx", "-g", "daemon off;", ";", "python", "main:app"]
