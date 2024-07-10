@@ -3,10 +3,6 @@ FROM python:3.9-slim as build
 
 WORKDIR /app
 
-# Copiar os arquivos necessários
-COPY app/my_app_pypi/requirements.txt .
-COPY app/my_app_pypi/main.py .
-
 # Instalar dependências
 RUN pip install -r requirements.txt
 
