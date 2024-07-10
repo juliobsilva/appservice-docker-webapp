@@ -1,12 +1,25 @@
-FROM python:3.9-slim
+# Etapa 1: Construir a aplicação Python
+FROM python:3.9-slim as build
 
 WORKDIR /app
 
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
-
+# Copiar o código fonte da aplicação
 COPY . .
 
-EXPOSE 5000
+# Instalar dependências
+RUN pip install -r requirements.txt
 
-CMD ["python", "my_app_pypi/main.py"]
+# Etapa 2: Configurar o servidor Nginx
+FROM nginx:latest
+
+# Copiar os arquivos estáticos (ou dinâmicos) da aplicação Python para o diretório do Nginx
+COPY --from=build /app /usr/src/app
+
+# Copiar o arquivo de configuração do Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expor a porta 80 (a porta padrão do Nginx)
+EXPOSE 80
+
+# Comando para iniciar o Nginx em primeiro plano
+CMD ["nginx", "-g", "daemon off;"]
