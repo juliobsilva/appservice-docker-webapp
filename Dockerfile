@@ -15,9 +15,6 @@ FROM nginx:latest
 # Copiar os arquivos estáticos (ou dinâmicos) da aplicação Python para o diretório do Nginx
 COPY --from=build /app /usr/src/app
 
-# Copiar o arquivo de configuração do Nginx
-COPY nginx.conf /etc/nginx/nginx.conf
-
 # Expor a porta 80 (a porta padrão do Nginx)
 EXPOSE 80
 
